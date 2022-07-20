@@ -1,0 +1,42 @@
+{{ define "main" }}
+<article class="post">
+    <header>
+        {{ with .Params.headerimage }}
+            {{- $img := printf "images/%s" $.Params.headerimage -}}
+            <img src="{{ $img | relURL }}">
+        {{ else }}
+            
+        {{ end }}
+        <h2>{{ .Title }}</h2>
+        <p>By {{ .Params.Author }}</p>
+        <p>Posted {{ .Date.Format "2 January, 2006" }}
+        <span class="tags">
+            in
+            {{ range .Params.tags }}
+                <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+            {{ end }}
+        </span></p>
+        <p>Average reading time: {{ math.Round (div (countwords .Content) 200.0) }}min</p>
+    </header>
+    <section class="body">{{ .Content }}</section>
+    <section class="related">
+        {{ $related := .Site.RegularPages.Related . | first 5 }}
+        {{ with $related }}
+            <h3>Related pages</h3>
+            <ul>
+                {{ range . }}
+                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                {{ end }}
+            </ul>
+        {{ end }}
+    </section>
+    <section class="comments">
+        <h3>Comments</h3>
+        {{ if .Params.disableComments }}
+            <p>Comments are disabled.</p>
+        {{ else }}
+            {{ template "_internal/disqus.html" . }}
+        {{ end }}
+    </section>
+</article>
+{{ end }}

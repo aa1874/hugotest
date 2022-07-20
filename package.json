@@ -1,0 +1,23 @@
+{
+    "name": "hugotrial",
+    "version": "1.0.0",
+    "description": "A hugo test site by AA1874",
+    "private": true,
+    "scripts": {
+        "hugo-build": "hugo --cleanDestinationDir",
+        "hugo-server": "hugo server --disableFastRender",
+        "webpack": "webpack",
+        "webpack-watch": "webpack --watch",
+        "dev": "npm-run-all webpack --parallel webpack-watch hugo-server",
+        "build": "npm-run-all webpack hugo-build"
+    },
+    "devDependencies": {
+        "npm-run-all": "^4.1.5",
+        "webpack": "^5.73.0",
+        "webpack-cli": "^4.10.0"
+    },
+    "dependencies": {
+        "axios": "^0.27.2",
+        "lunr": "^2.3.9"
+    }
+}
